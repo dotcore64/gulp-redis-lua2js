@@ -7,7 +7,7 @@ import es from 'event-stream';
 import requireFromString from 'require-from-string';
 import { expect } from 'chai';
 
-import lua2js from '../dist';
+import lua2js from '../src';
 
 const convertedJs = fs.readFileSync(path.join(__dirname, 'foo.js'), 'utf8');
 

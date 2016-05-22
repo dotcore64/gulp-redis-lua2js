@@ -6,7 +6,7 @@
   "scripts": {
     "test": "gulp test",
     "build": "gulp build",
-    "cover": "istanbul cover node_modules/.bin/_mocha",
+    "cover": "babel-node node_modules/isparta/bin/isparta cover --report text --report html node_modules/mocha/bin/_mocha",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf ./coverage",
     "prepublish": "npm run build"
   },
@@ -35,6 +35,7 @@
     "through2": "^2.0.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.9.0",
     "babel-core": "^6.9.0",
     "babel-eslint": "^6.0.4",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
@@ -50,7 +51,7 @@
     "gulp-eslint": "^2.0.0",
     "gulp-mocha": "^2.2.0",
     "gulp-util": "^3.0.7",
-    "istanbul": "^0.4.3",
+    "isparta": "^4.0.0",
     "mocha": "^2.4.5",
     "require-from-string": "^1.2.0",
     "vinyl": "^1.1.1"
