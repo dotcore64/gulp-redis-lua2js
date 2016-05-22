@@ -1,6 +1,6 @@
 {
   "name": "gulp-redis-lua2js",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Convert lua scripts to node modules",
   "main": "dist/index.js",
   "scripts": {
