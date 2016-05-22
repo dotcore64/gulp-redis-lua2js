@@ -30,6 +30,8 @@ gulp.task('lua', function() {
 });
 ```
 
+For a real life example, check [redis-pdel](https://github.com/perrin4869/redis-pdel)
+
 ## API
 
 ### lua2js({ encoding, useFilenameAsName, ...options })
