@@ -31,7 +31,7 @@
   "homepage": "https://github.com/perrin4869/gulp-redis-lua2js#readme",
   "dependencies": {
     "bluebird": "^3.4.0",
-    "redis-lua2js": "^0.1.1",
+    "redis-lua2js": "^1.0.0",
     "through2": "^2.0.1"
   },
   "devDependencies": {
