@@ -1,5 +1,4 @@
 import File from 'vinyl';
-import { PassThrough } from 'stream';
 
 import fs from 'fs';
 import path from 'path';
@@ -17,7 +16,7 @@ describe('gulp-redis-lua2js', () => {
       // create the fake file
       const luaFile = new File({
         path: luaPath,
-        contents: new PassThrough(),
+        contents: fs.createReadStream(path.join(__dirname, luaPath)),
       });
 
       // Create a prefixer plugin stream
@@ -34,7 +33,7 @@ describe('gulp-redis-lua2js', () => {
       // create the fake file
       const luaFile = new File({
         path: luaPath,
-        contents: new Buffer(''),
+        contents: new Buffer(fs.readFileSync(path.join(__dirname, 'foo.lua'))),
       });
 
       // Create a prefixer plugin stream
@@ -48,7 +47,7 @@ describe('gulp-redis-lua2js', () => {
 
   describe('in streaming mode', () => {
     it('should convert given lua file', () => (
-      fromStream('test/foo.lua')
+      fromStream('foo.lua')
       .then(file => {
         // make sure it came out the same way it went in
         expect(file.isStream()).to.equal(true);
@@ -65,7 +64,7 @@ describe('gulp-redis-lua2js', () => {
 
   describe('in buffering mode', () => {
     it('should convert given lua file', () => (
-      fromBuffer('test/foo.lua').then(file => {
+      fromBuffer('foo.lua').then(file => {
         // make sure it came out the same way it went in
         expect(file.isBuffer()).to.equal(true);
         expect(path.basename(file.path)).to.equal('foo.js');
@@ -78,7 +77,7 @@ describe('gulp-redis-lua2js', () => {
 
   describe('options', () => {
     it('should use filename as lua command name', () => (
-      fromBuffer('test/foo.lua').then(file => {
+      fromBuffer('foo.lua').then(file => {
         const lua = requireFromString(file.contents.toString());
         // buffer the contents to make sure it got prepended to
         expect(lua.name).to.equal('foo');
@@ -86,7 +85,7 @@ describe('gulp-redis-lua2js', () => {
     ));
 
     it('should use filename as lua command name', () => (
-      fromBuffer('test/foo.lua', { useFilenameAsName: false }).then(file => {
+      fromBuffer('foo.lua', { useFilenameAsName: false }).then(file => {
         const lua = requireFromString(file.contents.toString());
         // buffer the contents to make sure it got prepended to
         expect(lua.name).to.equal('pdel');
@@ -94,7 +93,7 @@ describe('gulp-redis-lua2js', () => {
     ));
 
     it('should override command name', () => (
-      fromBuffer('test/foo.lua', { name: 'somename' }).then(file => {
+      fromBuffer('foo.lua', { name: 'somename' }).then(file => {
         const lua = requireFromString(file.contents.toString());
         // buffer the contents to make sure it got prepended to
         expect(lua.name).to.equal('somename');

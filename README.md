@@ -34,13 +34,9 @@ For a real life example, check [redis-pdel](https://github.com/perrin4869/redis-
 
 ## API
 
-### lua2js({ encoding, useFilenameAsName, ...options })
+### lua2js({ useFilenameAsName, ...options })
 
 Converts the given lua scripts into node modules.
-
-#### encoding
-
-Type: `string`, default: `utf8`, the encoding of the lua file to be converted
 
 #### useFilenameAsName
 
