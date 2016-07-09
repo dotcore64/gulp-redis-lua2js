@@ -19,7 +19,7 @@ function gulpLua2Js({ useFilenameAsName = true, ...options } = {}) {
       const dirname = path.dirname(file.path);
       const basename = path.basename(file.path, path.extname(file.path));
 
-      if (!options.hasOwnProperty('name') && useFilenameAsName) {
+      if (!{}.hasOwnProperty.call(options, 'name') && useFilenameAsName) {
         options.name = basename;
       }
 
