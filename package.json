@@ -31,7 +31,7 @@
   "homepage": "https://github.com/perrin4869/gulp-redis-lua2js#readme",
   "dependencies": {
     "gulp-util": "^3.0.7",
-    "redis-lua2js": "^1.0.0",
+    "redis-lua2js": "^1.1.0",
     "through2": "^2.0.1",
     "vinyl-contents-tostring": "1.0.0"
   },

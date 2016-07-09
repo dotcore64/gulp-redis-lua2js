@@ -3,7 +3,7 @@ const { PluginError } = require('gulp-util');
 const path = require('path');
 const through = require('through2');
 const vinylToString = require('vinyl-contents-tostring');
-const { lua2js } = require('redis-lua2js');
+const lua2js = require('redis-lua2js');
 
 // consts
 const PLUGIN_NAME = 'gulp-redis-lua2js';
