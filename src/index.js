@@ -1,9 +1,9 @@
-const { PluginError } = require('gulp-util');
+import { PluginError } from 'gulp-util';
 
-const path = require('path');
-const through = require('through2');
-const vinylToString = require('vinyl-contents-tostring');
-const lua2js = require('redis-lua2js');
+import path from 'path';
+import through from 'through2';
+import vinylToString from 'vinyl-contents-tostring';
+import lua2js from 'redis-lua2js';
 
 // consts
 const PLUGIN_NAME = 'gulp-redis-lua2js';
