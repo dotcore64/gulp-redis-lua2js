@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.11.4",
-    "babel-eslint": "^6.1.2",
+    "babel-eslint": "^7.2.3",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-preset-es2015-node4": "^2.1.0",
     "chai": "^3.5.0",
