@@ -1,5 +1,7 @@
 # gulp-redis-lua2js
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/perrin4869/gulp-redis-lua2js.svg)](https://greenkeeper.io/)
+
 [![Travis][build-badge]][build]
 [![npm package][npm-badge]][npm]
 [![Coverage Status][coveralls-badge]][coveralls]
