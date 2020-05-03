@@ -2,20 +2,20 @@
   "name": "gulp-redis-lua2js",
   "version": "1.1.0",
   "description": "Convert lua scripts to node modules",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "gulp test",
-    "build": "gulp build",
-    "cover": "istanbul cover --report text --report html node_modules/mocha/bin/_mocha",
-    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf ./coverage",
-    "prepublish": "npm run build"
+    "lint": "eslint 'src/*.js' 'test/*.js'",
+    "test": "mocha",
+    "cover": "nyc npm test",
+    "coveralls": "npm run cover && nyc report --reporter=text-lcov | coveralls",
+    "prepare": "npm test"
   },
   "files": [
-    "dist"
+    "src"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/perrin4869/gulp-redis-lua2js.git"
+    "url": "git+https://github.com/dotcore64/gulp-redis-lua2js.git"
   },
   "keywords": [
     "gulp",
@@ -26,33 +26,26 @@
   "author": "Julian Grinblat",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/perrin4869/gulp-redis-lua2js/issues"
+    "url": "https://github.com/dotcore64/gulp-redis-lua2js/issues"
   },
-  "homepage": "https://github.com/perrin4869/gulp-redis-lua2js#readme",
+  "homepage": "https://github.com/dotcore64/gulp-redis-lua2js#readme",
   "dependencies": {
-    "gulp-util": "^3.0.7",
-    "redis-lua2js": "^1.1.0",
-    "through2": "^2.0.1",
-    "vinyl-contents-tostring": "1.0.0"
+    "plugin-error": "^1.0.1",
+    "promise-toolbox": "^0.15.1",
+    "redis-lua2js": "^2.0.0",
+    "through2": "^3.0.1",
+    "vinyl-contents-tostring": "3.0.0"
   },
   "devDependencies": {
-    "babel-core": "^6.11.4",
-    "babel-eslint": "^6.1.2",
-    "babel-plugin-transform-object-rest-spread": "^6.8.0",
-    "babel-preset-es2015-node4": "^2.1.0",
-    "chai": "^3.5.0",
-    "coveralls": "^2.11.12",
-    "eslint": "^3.2.2",
-    "eslint-config-airbnb-base": "^5.0.1",
-    "eslint-plugin-import": "^1.12.0",
-    "event-stream": "^3.3.4",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
-    "gulp-eslint": "^3.0.1",
-    "gulp-mocha": "^3.0.0",
-    "istanbul": "^1.1.0-alpha.1",
-    "mocha": "^3.0.0",
-    "require-from-string": "^1.2.0",
-    "vinyl": "^1.2.0"
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "coveralls": "^3.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "mocha": "^7.1.2",
+    "nyc": "^15.0.1",
+    "require-from-string": "^2.0.2",
+    "vinyl": "^2.2.0"
   }
 }

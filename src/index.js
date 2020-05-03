@@ -1,48 +1,32 @@
-import { PluginError } from 'gulp-util';
+const { PluginError } = require('plugin-error');
 
-import path from 'path';
-import through from 'through2';
-import vinylToString from 'vinyl-contents-tostring';
-import lua2js from 'redis-lua2js';
+const through = require('through2');
+const lua2js = require('redis-lua2js');
+const vinylToString = require('vinyl-contents-tostring');
+const { nodeify } = require('promise-toolbox');
 
 // consts
 const PLUGIN_NAME = 'gulp-redis-lua2js';
 
+const normalizeOptions = (useFilenameAsName, file, options) => ({
+  ...options,
+  name: !{}.hasOwnProperty.call(options, 'name') && useFilenameAsName
+    ? file.stem
+    : options.name,
+});
+
+const jsToVinyl = (file) => (js) => Object.assign(file, {
+  extname: '.js',
+  contents: file.isBuffer() // eslint-disable-line no-nested-ternary
+    ? Buffer.from(js)
+    : file.isStream()
+      ? through().end(js)
+      : (() => { throw new PluginError(PLUGIN_NAME, 'Invalid file'); }),
+});
+
 // plugin level function (dealing with files)
-function gulpLua2Js({ useFilenameAsName = true, ...options } = {}) {
-  // creating a stream through which each file will pass
-  return through.obj(function (file, enc, cb) {
-    const newFile = file.clone();
-
-    vinylToString(file, enc)
-    .then(lua => {
-      const dirname = path.dirname(file.path);
-      const basename = path.basename(file.path, path.extname(file.path));
-
-      if (!{}.hasOwnProperty.call(options, 'name') && useFilenameAsName) {
-        options.name = basename;
-      }
-
-      const js = lua2js(lua, options);
-
-      if (file.isBuffer()) {
-        newFile.contents = new Buffer(js);
-      } else if (file.isStream()) {
-        // start the transformation
-        newFile.contents = through();
-        newFile.contents.end(js);
-      } else {
-        throw new PluginError(PLUGIN_NAME, 'Invalid file');
-      }
-
-      newFile.path = path.join(dirname, `${basename}.js`);
-      // make sure the file goes through the next gulp plugin
-      this.push(newFile);
-
-      cb();
-    });
-  });
-}
-
-// exporting the plugin main function
-module.exports = gulpLua2Js;
+module.exports = ({ useFilenameAsName = true, ...options } = {}) => (
+  through.obj(nodeify((file, enc) => vinylToString(file, enc)
+    .then((lua) => lua2js(lua, normalizeOptions(useFilenameAsName, file, options)))
+    .then(jsToVinyl(file))))
+);

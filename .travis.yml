@@ -1,13 +1,16 @@
 language: node_js
 node_js:
-- '4'
-- '6'
+- '10'
+- '12'
+- '14'
 deploy:
-  api_key:
-    secure: Y0XgDobZZkHz3wnB+49jaL+YuGs02buPcvHG8f5qNcoLSTax3/6MOXP8HBpNCoKuHkwJMH/ys3CnfePXNRyUubmcBIhTSbuVa72VfqlhUWcv0A5qXrCzWJ6Q8sGaVjPcinNg9g2BbmM9xlc3+AQy1wkXCxHWE/3p37bSbTY8Cu6bj8AGWddhSd/stzAbNBJ3tZLPbzZOlHfFnP28qHArpQ9g60rKL6VZxkUA/mI34JYvmZr+v1vD7kCZiB7ibddPi4nEBTc8etPpGrpXqVNGqkkZsB6RXdkC5Yf6H1MDGfp4ylVUL78k/ZHSXcHXKwN0b0HLrDR24d+wQ0jQKmmHgnjvCyEixU/dafzyFuOUt+bIZJxWnWSFO3BwQuPNMPSvM9igH0hI9dpJNbcMHPny7UBrxKqip8DG+/X4ZInri+BI9xVp6CdHSAToOi1EbiyqyWSq2Y37qlSFupUne/LxVhG87qzWw2mRxtnarTKoyU6ORTTxRaGx10Qx9XRR2WuhnlEoenl5YwhA5IluZmPtDlirbZ1I/x9r8y7vwdwCflY5sxQfoj8Evfn38DpGbT6iMVBp/8KpOnMRsq7LHD0hWPxhh36n+A0x0ZJl1aLUMSnD28vGe+nuUUeWEvRsHHYuDJt42+SxDv9vMPXWrCGM/I5fDNsRbhaagdZw+X8Ku5I=
-  email: julian@dotcore.co.il
   provider: npm
+  email: julian@dotcore.co.il
+  api_key:
+    secure: Po1C7bJ68kOeA2Ot0z/pN29DkKa1Sm/O2IItY/gDBwOjpXPrFJWE5RBuZLgDKVKXVerRqWjzMDM+zPWQAO/ySGCtxkbpwt3r3NUh/C4hUZC9Y4VEbJUqGGPpJTwbZk2kbKdBYt5UvjxbBQLrEyaByzjCF9PEiEGCrsD4VnfC2byG7pCoCRqmq8GXeXFc9ZmU/m/dkN9nbC/y6hhyzYrVcB5Sr7kUVPaF2eCT0wMSbfFYe1Mff9C50KraypX0IY/szbuirQNkQ8OE7Ok4NCreRR7z7hvQRJXIB/jY/qJeF+iWMgUHKzBbLAMmsaVv4t0M3nrz4UAXFrObp+gEyGx1DL1ABfmugzB+IUjvJNvawpK7L3pMYJ6//VGr6XCdXVlT16Z44f8uZF/MErXuZhmZzRCcr6IWUMe1LsPaiW+F23Ib5ZN0mCKTxmtED3wClJkwMNzPKcqRrHSIY124FuKz7bs3t/M/6MHol0WJPLYnTfri/syBVpww2DOtiwm14awx4JchS+V330TTsujdZgNTD2L9J1J69XFGbkZ+/8u7zFluvSa2vMTVF2jn+5TqQAm0GFZ7AOY+ygtCzs7WfFP3tJvqS9ErVXkEOlu5grSN339E0j+HiCscCVuwqXHGPZ4jP5NeiuNgUrN5RSMze7xPgiTOC/XFRnCeFuO3oge+WYI=
   on:
     tags: true
+    repo: dotcore64/gulp-redis-lua2js
+  skip_cleanup: 'true'
 after_script:
 - npm run coveralls
