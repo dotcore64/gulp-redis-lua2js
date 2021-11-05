@@ -1,8 +1,12 @@
 # Coverage directory used by tools like istanbul
-.nyc_output
+coverage
 
 # Dependency directory
 node_modules
 
 # Debug log from npm
 npm-debug.log
+
+dist/
+
+.eslintcache

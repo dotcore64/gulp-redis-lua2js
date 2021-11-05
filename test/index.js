@@ -1,45 +1,52 @@
-const File = require('vinyl');
+import { readFileSync, createReadStream } from 'fs';
+import { join } from 'path';
+import { createRequire } from 'module';
 
-const { join } = require('path');
-const { readFileSync, createReadStream } = require('fs');
-const vinylToString = require('vinyl-contents-tostring');
-const requireFromString = require('require-from-string');
-const { use, expect } = require('chai');
-const { fromEvent } = require('promise-toolbox');
+import File from 'vinyl';
+import vinylToString from 'vinyl-contents-tostring';
+import { requireFromString, importFromStringSync } from 'module-from-string';
+import { dirname } from 'dirname-filename-esm';
+import { use, expect } from 'chai';
+import { pEvent } from 'p-event';
 
-const lua2js = require('..');
+// https://github.com/import-js/eslint-plugin-import/issues/1649
+// eslint-disable-next-line import/no-unresolved,node/no-missing-import
+import lua2js from 'gulp-redis-lua2js';
+
+const require = createRequire(import.meta.url);
+
+const cjs = readFileSync(join(dirname(import.meta), 'foo.cjs'), 'utf8');
+const esm = readFileSync(join(dirname(import.meta), 'foo.js'), 'utf8');
 
 use(require('chai-as-promised'));
-
-const convertedJs = readFileSync(join(__dirname, 'foo.js'), 'utf8');
 
 describe('gulp-redis-lua2js', () => {
   function fromStream(luaPath, options) {
     // create the fake file
     const luaFile = new File({
       path: luaPath,
-      contents: createReadStream(join(__dirname, luaPath)),
+      contents: createReadStream(join(dirname(import.meta), luaPath)),
     });
 
     // Create a prefixer plugin stream
     const converter = lua2js(options).end(luaFile);
 
     // wait for the file to come back out
-    return fromEvent(converter, 'data');
+    return pEvent(converter, 'data');
   }
 
   function fromBuffer(path, options) {
     // create the fake file
     const file = new File({
       path,
-      contents: Buffer.from(readFileSync(join(__dirname, 'foo.lua'))),
+      contents: Buffer.from(readFileSync(join(dirname(import.meta), 'foo.lua'))),
     });
 
     // Create a prefixer plugin stream
     const converter = lua2js(options).end(file);
 
     // wait for the file to come back out
-    return fromEvent(converter, 'data');
+    return pEvent(converter, 'data');
   }
 
   describe('in streaming mode', () => {
@@ -51,7 +58,7 @@ describe('gulp-redis-lua2js', () => {
           expect(file.basename).to.equal('foo.js');
 
           // buffer the contents to make sure it got prepended to
-          return expect(vinylToString(file)).to.become(convertedJs);
+          return expect(vinylToString(file)).to.become(cjs);
         })
     ));
   });
@@ -64,7 +71,7 @@ describe('gulp-redis-lua2js', () => {
         expect(file.basename).to.equal('foo.js');
 
         // buffer the contents to make sure it got prepended to
-        expect(file.contents.toString()).to.equal(convertedJs);
+        expect(file.contents.toString()).to.equal(cjs);
       })
     ));
   });
@@ -78,7 +85,7 @@ describe('gulp-redis-lua2js', () => {
       })
     ));
 
-    it('should use filename as lua command name', () => (
+    it('should use comment content as lua command name', () => (
       fromBuffer('foo.lua', { useFilenameAsName: false }).then((file) => {
         const lua = requireFromString(file.contents.toString());
         // buffer the contents to make sure it got prepended to
@@ -93,5 +100,20 @@ describe('gulp-redis-lua2js', () => {
         expect(lua.name).to.equal('somename');
       })
     ));
+
+    it('should convert to an esm module', () => (
+      fromBuffer('foo.lua', { type: 'module' }).then((file) => {
+        const lua = importFromStringSync(file.contents.toString());
+        // buffer the contents to make sure it got prepended to
+        expect(lua.name).to.equal('foo');
+        expect(file.contents.toString()).to.equal(esm);
+      })
+    ));
+  });
+
+  describe('cjs', () => {
+    it('should require cjs module', () => {
+      expect(require('..')).to.be.a('function');
+    });
   });
 });

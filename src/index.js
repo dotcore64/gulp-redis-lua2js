@@ -1,19 +1,12 @@
-const { PluginError } = require('plugin-error');
+import { callbackify } from 'util';
 
-const through = require('through2');
-const lua2js = require('redis-lua2js');
-const vinylToString = require('vinyl-contents-tostring');
-const { nodeify } = require('promise-toolbox');
+import through from 'through2';
+import lua2js from 'redis-lua2js';
+import vinylToString from 'vinyl-contents-tostring';
+import PluginError from 'plugin-error';
 
 // consts
 const PLUGIN_NAME = 'gulp-redis-lua2js';
-
-const normalizeOptions = (useFilenameAsName, file, options) => ({
-  ...options,
-  name: !{}.hasOwnProperty.call(options, 'name') && useFilenameAsName
-    ? file.stem
-    : options.name,
-});
 
 const jsToVinyl = (file) => (js) => Object.assign(file, {
   extname: '.js',
@@ -21,12 +14,19 @@ const jsToVinyl = (file) => (js) => Object.assign(file, {
     ? Buffer.from(js)
     : file.isStream()
       ? through().end(js)
-      : (() => { throw new PluginError(PLUGIN_NAME, 'Invalid file'); }),
+      : (() => { throw new PluginError(PLUGIN_NAME, 'Invalid file'); })(),
 });
 
 // plugin level function (dealing with files)
-module.exports = ({ useFilenameAsName = true, ...options } = {}) => (
-  through.obj(nodeify((file, enc) => vinylToString(file, enc)
-    .then((lua) => lua2js(lua, normalizeOptions(useFilenameAsName, file, options)))
+export default ({ useFilenameAsName = true, name, ...options } = {}) => (
+  through.obj(callbackify((file, enc) => vinylToString(file, enc)
+    .then((lua) => lua2js(lua, {
+      ...options,
+      name: typeof name === 'string' && name.length > 0 // eslint-disable-line no-nested-ternary
+        ? name
+        : useFilenameAsName
+          ? file.stem
+          : undefined,
+    }))
     .then(jsToVinyl(file))))
 );

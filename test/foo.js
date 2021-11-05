@@ -1,3 +1,3 @@
-module.exports.lua = "--!/usr/bin/env lua\n-- name pdel\n-- nkeys 1\n\nlocal function deleteKeys (keys)\n  for i, name in ipairs(keys) do\n    redis.call(\"DEL\", name)\n  end\nend\n\nif type(redis.replicate_commands) == 'function' and redis.replicate_commands() then -- Redis 3.2+\n  local count = 0\n  local cursor = \"0\"\n  local keys\n\n  repeat\n    cursor, keys = unpack(redis.call(\"SCAN\", cursor, \"MATCH\", KEYS[1]))\n    count = count + #keys\n    deleteKeys(keys)\n  until cursor == \"0\"\n\n  return count\nelse\n  local keys = redis.call(\"KEYS\", KEYS[1])\n  deleteKeys(keys)\n  return #keys\nend\n";
-module.exports.name = "foo";
-module.exports.numberOfKeys = 1;
+export const lua = "--!/usr/bin/env lua\n-- name pdel\n-- nkeys 1\n\nlocal function deleteKeys (keys)\n  for i, name in ipairs(keys) do\n    redis.call(\"DEL\", name)\n  end\nend\n\nif type(redis.replicate_commands) == 'function' and redis.replicate_commands() then -- Redis 3.2+\n  local count = 0\n  local cursor = \"0\"\n  local keys\n\n  repeat\n    cursor, keys = unpack(redis.call(\"SCAN\", cursor, \"MATCH\", KEYS[1]))\n    count = count + #keys\n    deleteKeys(keys)\n  until cursor == \"0\"\n\n  return count\nelse\n  local keys = redis.call(\"KEYS\", KEYS[1])\n  deleteKeys(keys)\n  return #keys\nend\n";;
+export const name = "foo";;
+export const numberOfKeys = 1;;
