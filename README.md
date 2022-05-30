@@ -3,8 +3,6 @@
 [![Build Status][build-badge]][build]
 [![npm package][npm-badge]][npm]
 [![Coverage Status][coveralls-badge]][coveralls]
-[![Dependency Status][dependency-status-badge]][dependency-status]
-[![devDependency Status][dev-dependency-status-badge]][dev-dependency-status]
 
 > Convert lua scripts to node modules using [redis-lua2js](https://github.com/dotcore64/redis-lua2js)
 
@@ -19,8 +17,8 @@ $ npm install --save-dev gulp-redis-lua2js
 Convert `pdel.lua` to `pdel.js`:
 
 ```js
-const gulp = require('gulp');
-const lua2js = require('gulp-redis-lua2js');
+import gulp from 'gulp';
+import lua2js from 'gulp-redis-lua2js';
 
 gulp.task('lua', function() {
   // Backend locales
@@ -58,9 +56,3 @@ See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
 
 [coveralls-badge]: https://img.shields.io/coveralls/dotcore64/gulp-redis-lua2js/master.svg?style=flat-square
 [coveralls]: https://coveralls.io/r/dotcore64/gulp-redis-lua2js
-
-[dependency-status-badge]: https://david-dm.org/dotcore64/gulp-redis-lua2js.svg?style=flat-square
-[dependency-status]: https://david-dm.org/dotcore64/gulp-redis-lua2js
-
-[dev-dependency-status-badge]: https://david-dm.org/dotcore64/gulp-redis-lua2js/dev-status.svg?style=flat-square
-[dev-dependency-status]: https://david-dm.org/dotcore64/gulp-redis-lua2js#info=devDependencies
