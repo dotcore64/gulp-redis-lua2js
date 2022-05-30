@@ -37,7 +37,7 @@
   "homepage": "https://github.com/dotcore64/gulp-redis-lua2js#readme",
   "dependencies": {
     "plugin-error": "^1.0.1",
-    "redis-lua2js": "^3.0.0",
+    "redis-lua2js": "^4.0.0",
     "through2": "^4.0.2",
     "vinyl-contents-tostring": "5.0.0"
   },
