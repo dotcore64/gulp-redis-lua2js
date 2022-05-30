@@ -9,17 +9,17 @@
     "unicorn/no-nested-ternary": 0
   },
   "overrides": [
-        {
-            "files": ["test/{,**/}*.js"],
-            "extends": ["plugin:mocha/recommended"],
-            "plugins": ["mocha"],
-            "env": {
-                "mocha": true
-            },
-            "rules": {
-              "mocha/no-mocha-arrows": 0,
-              "import/no-extraneous-dependencies": [2, {"devDependencies": true}]
-            }
-        }
-    ]
+    {
+      "files": ["test/{,**/}*.js"],
+      "extends": ["plugin:mocha/recommended"],
+      "plugins": ["mocha"],
+      "env": {
+        "mocha": true
+      },
+      "rules": {
+        "mocha/no-mocha-arrows": 0,
+        "import/no-extraneous-dependencies": [2, {"devDependencies": true}]
+      }
+    }
+  ]
 }
