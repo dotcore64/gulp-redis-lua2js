@@ -1,4 +1,4 @@
-import { callbackify } from 'util';
+import { callbackify } from 'node:util';
 
 import through from 'through2';
 import lua2js from 'redis-lua2js';

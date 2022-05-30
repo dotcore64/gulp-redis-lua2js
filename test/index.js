@@ -1,5 +1,5 @@
-import { readFileSync, createReadStream } from 'fs';
-import { join } from 'path';
+import { readFileSync, createReadStream } from 'node:fs';
+import { join } from 'node:path';
 
 import File from 'vinyl';
 import vinylToString from 'vinyl-contents-tostring';
@@ -9,44 +9,44 @@ import { use, expect } from 'chai';
 import { pEvent } from 'p-event';
 
 // https://github.com/import-js/eslint-plugin-import/issues/1649
-// eslint-disable-next-line import/no-unresolved,node/no-missing-import
+// eslint-disable-next-line import/no-unresolved,n/no-extraneous-import
 import lua2js from 'gulp-redis-lua2js';
 
 const cjs = readFileSync(join(dirname(import.meta), 'foo.cjs'), 'utf8');
 const esm = readFileSync(join(dirname(import.meta), 'foo.js'), 'utf8');
 
-// eslint-disable-next-line node/no-unsupported-features/es-syntax
+// eslint-disable-next-line unicorn/no-await-expression-member
 use((await import('chai-as-promised')).default);
 
+function fromStream(luaPath, options) {
+  // create the fake file
+  const luaFile = new File({
+    path: luaPath,
+    contents: createReadStream(join(dirname(import.meta), luaPath)),
+  });
+
+  // Create a prefixer plugin stream
+  const converter = lua2js(options).end(luaFile);
+
+  // wait for the file to come back out
+  return pEvent(converter, 'data');
+}
+
+function fromBuffer(path, options) {
+  // create the fake file
+  const file = new File({
+    path,
+    contents: Buffer.from(readFileSync(join(dirname(import.meta), 'foo.lua'))),
+  });
+
+  // Create a prefixer plugin stream
+  const converter = lua2js(options).end(file);
+
+  // wait for the file to come back out
+  return pEvent(converter, 'data');
+}
+
 describe('gulp-redis-lua2js', () => {
-  function fromStream(luaPath, options) {
-    // create the fake file
-    const luaFile = new File({
-      path: luaPath,
-      contents: createReadStream(join(dirname(import.meta), luaPath)),
-    });
-
-    // Create a prefixer plugin stream
-    const converter = lua2js(options).end(luaFile);
-
-    // wait for the file to come back out
-    return pEvent(converter, 'data');
-  }
-
-  function fromBuffer(path, options) {
-    // create the fake file
-    const file = new File({
-      path,
-      contents: Buffer.from(readFileSync(join(dirname(import.meta), 'foo.lua'))),
-    });
-
-    // Create a prefixer plugin stream
-    const converter = lua2js(options).end(file);
-
-    // wait for the file to come back out
-    return pEvent(converter, 'data');
-  }
-
   describe('in streaming mode', () => {
     it('should convert given lua file', () => (
       fromStream('foo.lua')
