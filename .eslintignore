@@ -1,5 +1,4 @@
 test/foo.js
 test/foo.cjs
-dist/
 coverage/
 node_modules/

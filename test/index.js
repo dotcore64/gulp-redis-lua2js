@@ -1,6 +1,5 @@
 import { readFileSync, createReadStream } from 'fs';
 import { join } from 'path';
-import { createRequire } from 'module';
 
 import File from 'vinyl';
 import vinylToString from 'vinyl-contents-tostring';
@@ -13,12 +12,11 @@ import { pEvent } from 'p-event';
 // eslint-disable-next-line import/no-unresolved,node/no-missing-import
 import lua2js from 'gulp-redis-lua2js';
 
-const require = createRequire(import.meta.url);
-
 const cjs = readFileSync(join(dirname(import.meta), 'foo.cjs'), 'utf8');
 const esm = readFileSync(join(dirname(import.meta), 'foo.js'), 'utf8');
 
-use(require('chai-as-promised'));
+// eslint-disable-next-line node/no-unsupported-features/es-syntax
+use((await import('chai-as-promised')).default);
 
 describe('gulp-redis-lua2js', () => {
   function fromStream(luaPath, options) {
@@ -109,11 +107,5 @@ describe('gulp-redis-lua2js', () => {
         expect(file.contents.toString()).to.equal(esm);
       })
     ));
-  });
-
-  describe('cjs', () => {
-    it('should require cjs module', () => {
-      expect(require('..')).to.be.a('function');
-    });
   });
 });
