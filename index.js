@@ -10,7 +10,7 @@ const PLUGIN_NAME = 'gulp-redis-lua2js';
 
 const jsToVinyl = (file) => (js) => Object.assign(file, {
   extname: '.js',
-  contents: file.isBuffer() // eslint-disable-line no-nested-ternary
+  contents: file.isBuffer()
     ? Buffer.from(js)
     : file.isStream()
       ? through().end(js)
@@ -22,7 +22,7 @@ export default ({ useFilenameAsName = true, name, ...options } = {}) => (
   through.obj(callbackify((file, enc) => vinylToString(file, enc)
     .then((lua) => lua2js(lua, {
       ...options,
-      name: typeof name === 'string' && name.length > 0 // eslint-disable-line no-nested-ternary
+      name: typeof name === 'string' && name.length > 0
         ? name
         : useFilenameAsName
           ? file.stem
