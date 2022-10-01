@@ -56,6 +56,6 @@
     "mocha": "^10.0.0",
     "module-from-string": "^3.3.0",
     "p-event": "^5.0.1",
-    "vinyl": "^2.2.1"
+    "vinyl": "^3.0.0"
   }
 }
