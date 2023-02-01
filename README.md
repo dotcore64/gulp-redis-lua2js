@@ -48,7 +48,7 @@ The options to `lua2js` documented in [redis-lua2js](https://github.com/dotcore6
 
 See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
 
-[build-badge]: https://img.shields.io/github/workflow/status/dotcore64/gulp-redis-lua2js/test/master?style=flat-square
+[build-badge]: https://img.shields.io/github/actions/workflow/status/dotcore64/gulp-redis-lua2js/test.yml?event=push&style=flat-square
 [build]: https://github.com/dotcore64/gulp-redis-lua2js/actions
 
 [npm-badge]: https://img.shields.io/npm/v/gulp-redis-lua2js.svg?style=flat-square
