@@ -9,7 +9,7 @@ import { use, expect } from 'chai';
 import { pEvent } from 'p-event';
 
 // https://github.com/import-js/eslint-plugin-import/issues/1649
-// eslint-disable-next-line import/no-unresolved,n/no-extraneous-import
+// eslint-disable-next-line import/no-unresolved
 import lua2js from 'gulp-redis-lua2js';
 
 const cjs = readFileSync(join(dirname(import.meta), 'foo.cjs'), 'utf8');
