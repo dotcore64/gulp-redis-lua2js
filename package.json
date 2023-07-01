@@ -55,7 +55,7 @@
     "eslint-plugin-unicorn": "^47.0.0",
     "mocha": "^10.2.0",
     "module-from-string": "^3.3.0",
-    "p-event": "^5.0.1",
+    "p-event": "^6.0.0",
     "vinyl": "^3.0.0"
   }
 }
