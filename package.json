@@ -52,7 +52,7 @@
     "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-mocha": "^10.2.0",
     "eslint-plugin-n": "^16.6.0",
-    "eslint-plugin-unicorn": "^49.0.0",
+    "eslint-plugin-unicorn": "^50.0.1",
     "mocha": "^10.2.0",
     "module-from-string": "^3.3.0",
     "p-event": "^6.0.0",
