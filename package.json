@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "engines": {
-    "node": ">=18.0"
+    "node": ">=20.0"
   },
   "exports": {
     ".": "./index.js",
@@ -37,9 +37,9 @@
   "homepage": "https://github.com/dotcore64/gulp-redis-lua2js#readme",
   "dependencies": {
     "plugin-error": "^2.0.1",
-    "redis-lua2js": "^5.0.0",
+    "redis-lua2js": "^6.0.0",
     "through2": "^4.0.2",
-    "vinyl-contents-tostring": "7.0.0"
+    "vinyl-contents-tostring": "^8.0.0"
   },
   "devDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
