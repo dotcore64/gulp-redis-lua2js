@@ -38,7 +38,7 @@
   "dependencies": {
     "plugin-error": "^2.0.1",
     "redis-lua2js": "^6.0.0",
-    "through2": "^4.0.2",
+    "through2": "^5.0.0",
     "vinyl-contents-tostring": "^8.0.0"
   },
   "devDependencies": {
