@@ -39,7 +39,7 @@
     "plugin-error": "^2.0.1",
     "redis-lua2js": "^6.0.0",
     "through2": "^5.0.0",
-    "vinyl-contents-tostring": "^8.0.0"
+    "vinyl-contents-tostring": "^9.0.0"
   },
   "devDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.7.1",
