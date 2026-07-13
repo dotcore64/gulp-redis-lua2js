@@ -13,7 +13,7 @@
   },
   "scripts": {
     "lint": "eslint --cache .",
-    "test": "mocha",
+    "test": "node --test --import ./test/setup.js ./test/index.js",
     "cover": "c8 npm test"
   },
   "files": [
