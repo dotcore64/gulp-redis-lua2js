@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "engines": {
-    "node": ">=20.0"
+    "node": "^22.16.0 || >=24.0.0"
   },
   "exports": {
     ".": "./index.js",
@@ -37,7 +37,7 @@
   "homepage": "https://github.com/dotcore64/gulp-redis-lua2js#readme",
   "dependencies": {
     "plugin-error": "^2.0.1",
-    "redis-lua2js": "^6.0.0",
+    "redis-lua2js": "^7.0.0",
     "through2": "^5.0.5",
     "vinyl-contents-tostring": "^9.0.0"
   },
