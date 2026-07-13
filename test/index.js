@@ -4,7 +4,6 @@ import { join } from "node:path";
 import File from "vinyl";
 import vinylToString from "vinyl-contents-tostring";
 import { requireFromString, importFromStringSync } from "module-from-string";
-import { dirname } from "dirname-filename-esm";
 import { use, expect } from "chai";
 import { pEvent } from "p-event";
 
@@ -12,8 +11,8 @@ import { pEvent } from "p-event";
 // eslint-disable-next-line import/no-unresolved
 import lua2js from "gulp-redis-lua2js";
 
-const cjs = readFileSync(join(dirname(import.meta), "foo.cjs"), "utf8");
-const esm = readFileSync(join(dirname(import.meta), "foo.js"), "utf8");
+const cjs = readFileSync(join(import.meta.dirname, "foo.cjs"), "utf8");
+const esm = readFileSync(join(import.meta.dirname, "foo.js"), "utf8");
 
 // eslint-disable-next-line unicorn/no-await-expression-member
 use((await import("chai-as-promised")).default);
@@ -22,7 +21,7 @@ function fromStream(luaPath, options) {
   // create the fake file
   const luaFile = new File({
     path: luaPath,
-    contents: createReadStream(join(dirname(import.meta), luaPath)),
+    contents: createReadStream(join(import.meta.dirname, luaPath)),
   });
 
   // Create a prefixer plugin stream
@@ -36,7 +35,7 @@ function fromBuffer(path, options) {
   // create the fake file
   const file = new File({
     path,
-    contents: Buffer.from(readFileSync(join(dirname(import.meta), "foo.lua"))),
+    contents: Buffer.from(readFileSync(join(import.meta.dirname, "foo.lua"))),
   });
 
   // Create a prefixer plugin stream
