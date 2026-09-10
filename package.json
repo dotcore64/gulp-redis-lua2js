@@ -58,7 +58,7 @@
     "mocha": "^12.0.0",
     "module-from-string": "^3.3.1",
     "p-event": "^7.1.0",
-    "prettier": "3.9.5",
+    "prettier": "3.9.6",
     "vinyl": "^3.0.1"
   }
 }
